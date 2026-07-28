@@ -1,0 +1,66 @@
+{
+  "lastUpdated": "October 2025",
+  "providers": {
+    "hetzner": {
+      "displayName": "Hetzner Cloud",
+      "website": "https://www.hetzner.com/cloud",
+      "billingPage": "https://console.hetzner.com/usage",
+      "apiTokenDocs": "https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/",
+      "transferIncluded": "20 TB/month",
+      "regions": [
+        { "code": "fsn1", "name": "Falkenstein, Germany",  "country": "DE", "planCode": "cpx12" },
+        { "code": "hel1", "name": "Helsinki, Finland",      "country": "FI", "planCode": "cpx12" },
+        { "code": "nbg1", "name": "Nuremberg, Germany",     "country": "DE", "planCode": "cpx12" },
+        { "code": "ash",  "name": "Ashburn, USA",           "country": "US", "planCode": "cpx11" },
+        { "code": "sin",  "name": "Singapore",              "country": "SG", "planCode": "cpx12" },
+        { "code": "tor",  "name": "Toronto, Canada",        "country": "CA", "planCode": "cpx12" }
+      ],
+      "plans": [
+        { "code": "cpx12", "name": "CPX12", "vcpu": 1, "ram": "2 GB", "disk": "40 GB SSD", "price": 14.90 },
+        { "code": "cpx11", "name": "CPX11", "vcpu": 2, "ram": "2 GB", "disk": "40 GB SSD", "price": 22.67 }
+      ]
+    },
+    "digitalocean": {
+      "displayName": "DigitalOcean",
+      "website": "https://www.digitalocean.com",
+      "signupPage": "https://cloud.digitalocean.com/registrations/new",
+      "billingPage": "https://cloud.digitalocean.com/settings/billing/alerts",
+      "apiTokenDocs": "https://docs.digitalocean.com/reference/api/create-personal-access-token/",
+      "transferIncluded": "1 TB/month (basic plans)",
+      "regions": [
+        { "code": "nyc3", "name": "New York, USA",          "country": "US" },
+        { "code": "sfo3", "name": "San Francisco, USA",     "country": "US" },
+        { "code": "ams3", "name": "Amsterdam, Netherlands", "country": "NL" },
+        { "code": "sgp1", "name": "Singapore",              "country": "SG" },
+        { "code": "lon1", "name": "London, UK",             "country": "GB" },
+        { "code": "blr1", "name": "Bangalore, India",       "country": "IN" }
+      ],
+      "plans": [
+        { "code": "s-1vcpu-1gb", "name": "Basic / 1 vCPU", "vcpu": 1, "ram": "1 GB", "disk": "25 GB SSD", "price": 4.00 },
+        { "code": "s-2vcpu-2gb", "name": "Basic / 2 vCPU", "vcpu": 2, "ram": "2 GB", "disk": "50 GB SSD", "price": 8.00 },
+        { "code": "s-2vcpu-4gb", "name": "Basic / 2 vCPU", "vcpu": 2, "ram": "4 GB", "disk": "80 GB SSD", "price": 16.00 }
+      ]
+    },
+    "linode": {
+      "displayName": "Linode (Akamai Cloud)",
+      "website": "https://www.linode.com",
+      "signupPage": "https://login.linode.com/signup",
+      "billingPage": "https://cloud.linode.com/account/billing",
+      "apiTokenDocs": "https://techdocs.akamai.com/linode-api/reference/post-personal-access-token",
+      "transferIncluded": "2 TB/month (Nanode)",
+      "regions": [
+        { "code": "us-east",    "name": "Atlanta, GA, USA",   "country": "US" },
+        { "code": "us-central", "name": "Dallas, TX, USA",    "country": "US" },
+        { "code": "eu-west",    "name": "Frankfurt, Germany", "country": "DE" },
+        { "code": "ap-south",   "name": "Mumbai, India",      "country": "IN" },
+        { "code": "uk-london",  "name": "London, UK",         "country": "GB" },
+        { "code": "ap-north",   "name": "Tokyo, Japan",       "country": "JP" }
+      ],
+      "plans": [
+        { "code": "g6-nanode-1",   "name": "Nanode 1 GB",   "vcpu": 1, "ram": "1 GB", "disk": "25 GB NVMe", "price": 5.00 },
+        { "code": "g6-standard-2", "name": "Standard 2 GB", "vcpu": 1, "ram": "2 GB", "disk": "50 GB NVMe", "price": 10.00 },
+        { "code": "g6-standard-4", "name": "Standard 4 GB", "vcpu": 2, "ram": "4 GB", "disk": "80 GB NVMe", "price": 20.00 }
+      ]
+    }
+  }
+}

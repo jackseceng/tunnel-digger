@@ -1,0 +1,6 @@
+{{PROVIDER_CONFIG}}
+
+output "server_ip" {
+  value = hcloud_server.exit_node.ipv4_address
+  description = "Public IP address of the exit node VM"
+}

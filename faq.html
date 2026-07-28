@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Tailscale Exit Node Generator</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F98A;</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        details { margin-bottom: 12px; }
+        details summary {
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            padding: 14px 18px;
+            background: #1e293b;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+        details summary:hover { background: #263548; }
+        details summary::before {
+            content: '+';
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #7c3aed;
+            min-width: 20px;
+            text-align: center;
+        }
+        details[open] summary::before { content: '\2212'; }
+        details[open] summary {
+            border-radius: 8px 8px 0 0;
+            border-bottom-color: transparent;
+        }
+        .faq-content {
+            padding: 18px 20px;
+            background: #16213e;
+            border: 1px solid #334155;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+        .faq-content p + p { margin-top: 12px; }
+        .faq-content ul { padding-left: 20px; margin-top: 12px; }
+        .faq-content li { margin-bottom: 6px; }
+        /* Light mode overrides */
+        body.light-mode details summary { background: #f1f5f9; border-color: #e2e8f0; color: #4c1d95; }
+        body.light-mode details summary:hover { background: #e8ecf2; }
+        body.light-mode .faq-content { background: #f8f9fa; border-color: #e2e8f0; color: #334155; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>&#x1F98A; FAQ</h1>
+        <p class="subtitle"><a href="index.html" style="color:inherit;text-decoration:underline;">&larr; Back to the generator</a></p>
+    </header>
+
+    <section class="card" style="opacity:1;transform:none;">
+
+        <details>
+            <summary>How was this site built?</summary>
+            <div class="faq-content">
+                <p>The HTML, CSS, and JavaScript for this site were generated with the help of AI tooling (Kiro). Jack, the developer behind this project, is an infrastructure engineer — not a web designer. The front-end exists purely to make it easy for anyone to generate ready-to-run Terraform files without touching code.</p>
+                <p>The Terraform configurations themselves are built from Jack's hands-on experience managing Infrastructure as Code across his career. The idea was simple: if generating a working Terraform deployment can be reduced to a few clicks, more people might try managing their own infrastructure.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Why does this exist?</summary>
+            <div class="faq-content">
+                <p>Many people route all their internet traffic through commercial VPN companies without knowing how those services actually work — what gets logged, who has access, or how the infrastructure is managed.</p>
+                <p>This project exists to give people a way to run their own exit node — a server they provision, on an account they control, that they can destroy at any time. It's a step towards owning your own infrastructure rather than renting someone else's black box.</p>
+                <p>A secondary goal is to introduce people to Terraform. Once you've deployed your first piece of infrastructure with it, you start to see how repeatable and empowering it is.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Is this actually more private than a VPN?</summary>
+            <div class="faq-content">
+                <p><strong>Honest answer: it depends on your threat model.</strong> Here's what you're trusting and what you're not:</p>
+                <ul>
+                    <li><strong>Your traffic content</strong> is encrypted end-to-end by WireGuard (which Tailscale uses). Neither your cloud provider nor Tailscale can read the contents of your web traffic.</li>
+                    <li><strong>Your cloud provider</strong> (Hetzner, DigitalOcean, Linode) can see network metadata — source/destination IPs and bandwidth volumes — at the hypervisor level. They can't see inside the encrypted tunnel, but they know your server is communicating with the internet. They will also respond to law enforcement requests.</li>
+                    <li><strong>Tailscale's coordination server</strong> handles key exchange and device discovery. It knows which devices are in your tailnet, when they connect, and that you're advertising an exit node. It does not see your traffic content.</li>
+                    <li><strong>Application-level logging on the VM</strong> is entirely under your control — the generated config doesn't install any monitoring or logging agents. But you don't own the physical hardware, so you're trusting the hosting provider at the infrastructure layer.</li>
+                </ul>
+                <p><strong>What you gain over a commercial VPN:</strong> You eliminate the single point of trust that is the VPN company. There is no company logging your browsing, no shared IP address tying your traffic to hundreds of other users, and no terms of service that can change under you. You own the server and can verify exactly what runs on it.</p>
+                <p><strong>What you don't gain:</strong> Complete anonymity. If a government compels your cloud provider or Tailscale to hand over metadata, they could correlate your activity. If that's your concern, this tool is not the right solution — look at Tor or similar anonymity networks instead.</p>
+                <p>This project is about sovereignty and control, not invisibility.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Does this cost anything? Can I donate?</summary>
+            <div class="faq-content">
+                <p>This project doesn't ask for money or donations. It costs nothing to host because it runs as a static site on Cloudflare Pages — there's no server, no database, and no ongoing infrastructure cost for the project itself.</p>
+                <p>The only costs involved are yours: the cloud VM you provision (as low as ~$4/month depending on provider and region) and your Tailscale account (free for personal use).</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Is my data safe on this site?</summary>
+            <div class="faq-content">
+                <p>Yes. This page runs entirely in your browser. Nothing is sent to any server — no API tokens, no Tailscale keys, no analytics, no tracking. The site doesn't even have a backend.</p>
+                <p>You can verify this by opening your browser's Developer Tools and watching the Network tab while using the generator. The only outbound requests are to public CDNs (map tiles, Leaflet library, JSZip) and template files hosted alongside this page.</p>
+                <p>If you still don't trust entering your keys, the generator offers a "I don't trust you" option that downloads the files with placeholder values — you paste your real tokens in manually using a text editor.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>What is Terraform?</summary>
+            <div class="faq-content">
+                <p>Terraform is a tool that lets you describe infrastructure (servers, networks, DNS records, etc.) in simple text files, then create it all with a single command. It's used by companies of all sizes to manage cloud resources in a repeatable, version-controlled way.</p>
+                <p>This project generates those text files for you, pre-configured to create a Tailscale exit node on your chosen cloud provider. You just run the included deploy script and Terraform handles the rest.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>What is Tailscale?</summary>
+            <div class="faq-content">
+                <p>Tailscale is a mesh VPN that makes it easy to securely connect your devices over the internet. It runs on top of WireGuard and handles all the complicated networking for you.</p>
+                <p>An "exit node" is a Tailscale device that routes your internet traffic through itself — like a traditional VPN server, but one that you own and control. This project helps you deploy one of those.</p>
+            </div>
+        </details>
+
+    </section>
+
+    <footer>
+        <p><a href="index.html">Back to the generator</a> | <a href="SECURITY_NOTES.md">Security Notes</a></p>
+        <p class="disclaimer">This is a community tool, not affiliated with Tailscale or any cloud provider.</p>
+    </footer>
+</div>
+</body>
+</html>

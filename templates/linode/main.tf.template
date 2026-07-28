@@ -1,0 +1,6 @@
+{{PROVIDER_CONFIG}}
+
+output "instance_ip" {
+  value = linode_instance.exit_node.ipv4
+  description = "Public IP address of the exit node VM"
+}
