@@ -1,197 +1,348 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tailscale Exit Node Generator</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F98A;</text></svg>">
-</head>
-<body>
-<div class="container">
-    <header>
-        <button id="themeToggle" class="theme-toggle" title="Toggle light/dark mode">&#x1F31E;</button>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F98A;</text></svg>"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          title="Toggle light/dark mode"
+        >
+          &#x1F31E;
+        </button>
         <h1>&#x1F98A; Tailscale Exit Node Generator</h1>
-        <p class="subtitle">Generate Terraform files to deploy a Tailscale exit node on your preferred cloud provider</p>
-    </header>
+        <p class="subtitle">
+          Generate Terraform files to deploy a Tailscale exit node on your
+          preferred cloud provider
+        </p>
+      </header>
 
-    <!-- Card 1: Map -->
-    <section id="card1" class="card">
+      <!-- Card 1: Map -->
+      <section id="card1" class="card">
         <div class="card-header">
-            <span class="card-number">1</span>
-            <h2>Choose Your Exit Node Location</h2>
+          <span class="card-number">1</span>
+          <h2>Choose Your Exit Node Location</h2>
         </div>
-        <p class="map-hint">Hover over a highlighted country to see available providers and pricing, then click to select.</p>
+        <p class="map-hint">
+          Hover over a highlighted country to see available providers and
+          pricing, then click to select.
+        </p>
 
         <div id="map"></div>
 
-        <div id="providerPicker" class="provider-picker" style="display:none;">
-            <p class="picker-title">Multiple providers available in <strong id="pickerCountryName"></strong> &mdash; choose one:</p>
-            <div id="pickerOptions" class="picker-options"></div>
+        <div id="providerPicker" class="provider-picker" style="display: none">
+          <p class="picker-title">
+            Multiple providers available in
+            <strong id="pickerCountryName"></strong> &mdash; choose one:
+          </p>
+          <div id="pickerOptions" class="picker-options"></div>
         </div>
 
-        <div id="selectionSummary" class="selection-summary" style="display:none;">
-            <span id="selectionText"></span>
-            <button id="clearSelection" class="btn-text">&#x2715; Change</button>
+        <div
+          id="selectionSummary"
+          class="selection-summary"
+          style="display: none"
+        >
+          <span id="selectionText"></span>
+          <button id="clearSelection" class="btn-text">&#x2715; Change</button>
         </div>
 
-        <div class="card-actions" id="card1Actions" style="display:none;">
-            <button id="nextToCard2" class="btn btn-primary">Next: Configure &rarr;</button>
+        <div class="card-actions" id="card1Actions" style="display: none">
+          <button id="nextToCard2" class="btn btn-primary">
+            Next: Configure &rarr;
+          </button>
         </div>
-    </section>
+      </section>
 
-    <!-- Card 2: Account + Billing -->
-    <section id="card2" class="card" style="display:none;">
+      <!-- Card 2: Account + Billing -->
+      <section id="card2" class="card" style="display: none">
         <div class="card-header">
-            <span class="card-number">2</span>
-            <h2>Set Up Hosting Provider</h2>
+          <span class="card-number">2</span>
+          <h2>Set Up Hosting Provider</h2>
         </div>
 
         <!-- Account check -->
         <div id="accountCheck">
-            <p class="account-question">Do you already have an account with <strong id="providerNameCheck"></strong>?</p>
-            <div class="account-btn-group">
-                <button id="hasAccountBtn" class="btn btn-outline-yes">&#10003; Yes, I have an account</button>
-                <button id="noAccountBtn" class="btn btn-outline-no">&#10007; No, I need to create one</button>
-            </div>
+          <p class="account-question">
+            Do you already have an account with
+            <strong id="providerNameCheck"></strong>?
+          </p>
+          <div class="account-btn-group">
+            <button id="hasAccountBtn" class="btn btn-outline-yes">
+              &#10003; Yes, I have an account
+            </button>
+            <button id="noAccountBtn" class="btn btn-outline-no">
+              &#10007; No, I need to create one
+            </button>
+          </div>
         </div>
 
         <!-- No account panel -->
-        <div id="noAccountPanel" style="display:none;">
-            <div class="info-box">
-                <h4>&#x1F4CB; You'll need to create an account first</h4>
-                <p>To deploy a VM you'll need an account with <strong id="providerNameSignup"></strong> and a valid payment method.</p>
-                <ul class="setup-steps">
-                    <li>Go to the sign-up page below and create a free account</li>
-                    <li>Add a credit/debit card or PayPal when prompted</li>
-                    <li>Verify your email address</li>
-                    <li>Once you're in, come back here and continue</li>
-                </ul>
-                <a id="signupLink" href="#" target="_blank" rel="noopener" class="billing-link signup-link">
-                    Create <span id="providerNameSignupLink"></span> Account &rarr;
-                </a>
-            </div>
-            <button id="accountCreatedBtn" class="btn btn-primary" style="margin-top:16px;">I've created my account &rarr;</button>
+        <div id="noAccountPanel" style="display: none">
+          <div class="info-box">
+            <h4>&#x1F4CB; You'll need to create an account first</h4>
+            <p>
+              To deploy a VM you'll need an account with
+              <strong id="providerNameSignup"></strong> and a valid payment
+              method.
+            </p>
+            <ul class="setup-steps">
+              <li>Go to the sign-up page below and create a free account</li>
+              <li>Add a credit/debit card or PayPal when prompted</li>
+              <li>Verify your email address</li>
+              <li>Once you're in, come back here and continue</li>
+            </ul>
+            <a
+              id="signupLink"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              class="billing-link signup-link"
+            >
+              Create <span id="providerNameSignupLink"></span> Account &rarr;
+            </a>
+          </div>
+          <button
+            id="accountCreatedBtn"
+            class="btn btn-primary"
+            style="margin-top: 16px"
+          >
+            I've created my account &rarr;
+          </button>
         </div>
 
         <!-- Billing panel -->
-        <div id="billingPanel" style="display:none;">
+        <div id="billingPanel" style="display: none">
+          <div id="billingAcks" class="billing-acks"></div>
 
-            <div id="billingAcks" class="billing-acks"></div>
-
-            <div class="card-actions" id="billingNextActions" style="display:none;">
-                <button id="nextToCard3" class="btn btn-primary">Next: Enter Credentials &rarr;</button>
-            </div>
+          <div
+            class="card-actions"
+            id="billingNextActions"
+            style="display: none"
+          >
+            <button id="nextToCard3" class="btn btn-primary">
+              Next: Enter Credentials &rarr;
+            </button>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Card 3: Credentials -->
-    <section id="card3" class="card" style="display:none;">
+      <!-- Card 3: Credentials -->
+      <section id="card3" class="card" style="display: none">
         <div class="card-header">
-            <span class="card-number">3</span>
-            <h2>Enter Your Credentials</h2>
+          <span class="card-number">3</span>
+          <h2>Enter Your Credentials</h2>
         </div>
 
         <!-- Tailscale account check -->
         <div id="tailscaleAccountCheck">
-            <p class="account-question">Do you have a Tailscale account?</p>
-            <div class="account-btn-group">
-                <button id="hasTailscaleBtn" class="btn btn-outline-yes">&#10003; Yes, I have one</button>
-                <button id="noTailscaleBtn" class="btn btn-outline-no">&#10007; No, I need to sign up</button>
-            </div>
+          <p class="account-question">Do you have a Tailscale account?</p>
+          <div class="account-btn-group">
+            <button id="hasTailscaleBtn" class="btn btn-outline-yes">
+              &#10003; Yes, I have one
+            </button>
+            <button id="noTailscaleBtn" class="btn btn-outline-no">
+              &#10007; No, I need to sign up
+            </button>
+          </div>
         </div>
 
         <!-- No Tailscale account -->
-        <div id="noTailscalePanel" style="display:none;">
-            <div class="info-box">
-                <h4>&#x1F4CB; You'll need a Tailscale account</h4>
-                <p>Tailscale is the VPN mesh that your exit node connects to. Sign up is free for personal use.</p>
-                <ul class="setup-steps">
-                    <li>Go to tailscale.com and sign up (Google, Microsoft, GitHub or email)</li>
-                    <li>Install Tailscale on the device you want to route traffic from</li>
-                    <li>Come back here once you're logged in</li>
-                </ul>
-                <a href="https://login.tailscale.com/start" target="_blank" rel="noopener" class="billing-link signup-link">
-                    Sign up for Tailscale &rarr;
-                </a>
-            </div>
-            <button id="tailscaleCreatedBtn" class="btn btn-primary" style="margin-top:16px;">I've signed up &rarr;</button>
+        <div id="noTailscalePanel" style="display: none">
+          <div class="info-box">
+            <h4>&#x1F4CB; You'll need a Tailscale account</h4>
+            <p>
+              Tailscale is the VPN mesh that your exit node connects to. Sign up
+              is free for personal use.
+            </p>
+            <ul class="setup-steps">
+              <li>
+                Go to tailscale.com and sign up (Google, Microsoft, GitHub or
+                email)
+              </li>
+              <li>
+                Install Tailscale on the device you want to route traffic from
+              </li>
+              <li>Come back here once you're logged in</li>
+            </ul>
+            <a
+              href="https://login.tailscale.com/start"
+              target="_blank"
+              rel="noopener"
+              class="billing-link signup-link"
+            >
+              Sign up for Tailscale &rarr;
+            </a>
+          </div>
+          <button
+            id="tailscaleCreatedBtn"
+            class="btn btn-primary"
+            style="margin-top: 16px"
+          >
+            I've signed up &rarr;
+          </button>
         </div>
 
         <!-- Credentials form (shown after Tailscale account confirmed) -->
-        <div id="credentialsForm" style="display:none;">
-            <div class="form-group">
-                <label for="tailscaleKey">Tailscale Auth Key</label>
-                <input type="password" id="tailscaleKey" placeholder="tskey-auth-..." required>
-                <small>Get this from <a href="https://login.tailscale.com/admin/settings/keys" target="_blank" rel="noopener">Tailscale Admin &rarr; Settings &rarr; Keys</a></small>
-                <span id="tsKeyWarning" class="field-warning" style="display:none;">&#9888;&#65039; Key doesn't start with <code>tskey-</code> &mdash; please double-check it.</span>
-            </div>
+        <div id="credentialsForm" style="display: none">
+          <div class="form-group">
+            <label for="tailscaleKey">Tailscale Auth Key</label>
+            <input
+              type="password"
+              id="tailscaleKey"
+              placeholder="tskey-auth-..."
+              required
+            />
+            <small
+              >Get this from
+              <a
+                href="https://login.tailscale.com/admin/settings/keys"
+                target="_blank"
+                rel="noopener"
+                >Tailscale Admin &rarr; Settings &rarr; Keys</a
+              ></small
+            >
+            <span id="tsKeyWarning" class="field-warning" style="display: none"
+              >&#9888;&#65039; Key doesn't start with
+              <code>tskey-</code> &mdash; please double-check it.</span
+            >
+          </div>
 
-            <div class="form-group">
-                <label for="providerApiKey" id="providerApiKeyLabel">Provider API Token</label>
-                <input type="password" id="providerApiKey" placeholder="Paste your API token here..." required>
-                <small id="providerApiKeyHint">Written into <code>terraform.tfvars</code> only &mdash; never sent to any server.</small>
-            </div>
+          <div class="form-group">
+            <label for="providerApiKey" id="providerApiKeyLabel"
+              >Provider API Token</label
+            >
+            <input
+              type="password"
+              id="providerApiKey"
+              placeholder="Paste your API token here..."
+              required
+            />
+            <small id="providerApiKeyHint"
+              >Written into <code>terraform.tfvars</code> only &mdash; never
+              sent to any server.</small
+            >
+          </div>
 
-            <p class="map-hint" style="margin-top:20px;margin-bottom:12px;">&#x1F512; <strong>This page runs entirely in your browser.</strong> Nothing you type here is sent anywhere &mdash; your tokens go straight into the files you download. You can verify this by checking your browser's network tab.</p>
-            <div class="card-actions">
-                <p style="margin-bottom:10px;font-weight:600;">Next:</p>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                    <button id="nextToCard4" class="btn btn-primary" style="flex:1;min-width:180px;width:auto;">Review Summary &rarr;</button>
-                    <button id="skipCredentials" class="btn btn-success" style="flex:1;min-width:180px;">I don't trust you &rarr;</button>
-                </div>
+          <p class="map-hint" style="margin-top: 20px; margin-bottom: 12px">
+            &#x1F512;
+            <strong>This page runs entirely in your browser.</strong> Nothing
+            you type here is sent anywhere &mdash; your tokens go straight into
+            the files you download. You can verify this by checking your
+            browser's network tab.
+          </p>
+          <div class="card-actions">
+            <p style="margin-bottom: 10px; font-weight: 600">Next:</p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap">
+              <button
+                id="nextToCard4"
+                class="btn btn-primary"
+                style="flex: 1; min-width: 180px; width: auto"
+              >
+                Review Summary &rarr;
+              </button>
+              <button
+                id="skipCredentials"
+                class="btn btn-success"
+                style="flex: 1; min-width: 180px"
+              >
+                I don't trust you &rarr;
+              </button>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Card 4: Summary -->
-    <section id="card4" class="card card-summary" style="display:none;">
+      <!-- Card 4: Summary -->
+      <section id="card4" class="card card-summary" style="display: none">
         <div class="card-header">
-            <span class="card-number">4</span>
-            <h2>Review Your Configuration</h2>
+          <span class="card-number">4</span>
+          <h2>Review Your Configuration</h2>
         </div>
         <div class="summary-grid" id="summaryGrid"></div>
-        <div id="manualKeysReminder" style="display:none;">
-            <label class="ack-item ack-item-warning">
-                <input type="checkbox" id="manualKeysAck">
-                <span>I understand that I chose not to enter my keys here, and I will need to open <code>terraform.tfvars</code> in a text editor and replace the placeholder values with my real Tailscale auth key and provider API token before running the deploy script.</span>
-            </label>
+        <div id="manualKeysReminder" style="display: none">
+          <label class="ack-item ack-item-warning">
+            <input type="checkbox" id="manualKeysAck" />
+            <span
+              >I understand that I chose not to enter my keys here, and I will
+              need to open <code>terraform.tfvars</code> in a text editor and
+              replace the placeholder values with my real Tailscale auth key and
+              provider API token before running the deploy script.</span
+            >
+          </label>
         </div>
         <div class="card-actions buttons">
-            <button id="downloadBtn" class="btn btn-success">&#x2B07; Download Terraform Package</button>
-            <button type="button" class="btn btn-secondary" onclick="location.reload()">Start Over</button>
+          <button id="downloadBtn" class="btn btn-success">
+            &#x2B07; Download Terraform Package
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="location.reload()"
+          >
+            Start Over
+          </button>
         </div>
-    </section>
+      </section>
 
-    <!-- Deployment Instructions -->
-    <section id="instructionsPreview" class="card" style="display:none;">
+      <!-- Deployment Instructions -->
+      <section id="instructionsPreview" class="card" style="display: none">
         <div class="card-header">
-            <span class="card-number">&#10003;</span>
-            <h2>Deployment Instructions</h2>
+          <span class="card-number">&#10003;</span>
+          <h2>Deployment Instructions</h2>
         </div>
         <div class="terminal-tabs">
-            <button class="tab-btn active" onclick="showTab('linux')">Linux / macOS</button>
-            <button class="tab-btn" onclick="showTab('windows')">Windows</button>
+          <button class="tab-btn active" onclick="showTab('linux')">
+            Linux / macOS
+          </button>
+          <button class="tab-btn" onclick="showTab('windows')">Windows</button>
         </div>
         <div id="linuxCommands"></div>
-        <div id="windowsCommands" style="display:none;"></div>
-    </section>
+        <div id="windowsCommands" style="display: none"></div>
+      </section>
 
-    <footer>
-        <p>Last updated: October 2025 | <a href="faq.html">FAQ</a> | <a href="SECURITY_NOTES.md">Security Notes</a> | <a href="https://tailscale.com/" target="_blank" rel="noopener">Tailscale Docs</a></p>
-        <p class="disclaimer">This is a community tool, not affiliated with Tailscale or any cloud provider. Use at your own risk.</p>
-    </footer>
-</div>
+      <footer>
+        <p>
+          Last updated: October 2025 | <a href="faq.html">FAQ</a> |
+          <a href="SECURITY_NOTES.md">Security Notes</a> |
+          <a href="https://tailscale.com/" target="_blank" rel="noopener"
+            >Tailscale Docs</a
+          >
+        </p>
+        <p class="disclaimer">
+          This is a community tool, not affiliated with Tailscale or any cloud
+          provider. Use at your own risk.
+        </p>
+      </footer>
+    </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
-        integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/app.js"></script>
-</body>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+      integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>

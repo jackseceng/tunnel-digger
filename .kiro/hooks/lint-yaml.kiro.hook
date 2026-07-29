@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "YAML Lint",
+  "description": "Validates YAML workflow files (matches VALIDATE_YAML in the CI lint workflow)",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx --yes yaml-lint .github/workflows/*.yml 2>&1 | tail -5 || true",
+    "timeout": 30
+  }
+}

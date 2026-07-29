@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "JS Syntax Check",
+  "description": "Runs node --check on app.js after every agent stop to catch syntax errors immediately",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "node --check js/app.js && echo \"✅ JS syntax OK\" || echo \"❌ JS syntax ERROR\""
+  }
+}
