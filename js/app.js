@@ -757,10 +757,24 @@ function showDeploymentInstructions(provider) {
         { label:'Enter the folder',          cmd:'cd tailscale-exit-node' },
         { label:'Run the deploy script',     cmd:'.\\deploy.ps1' }
     ];
+    var terraformNote = '<div class="info-box" style="margin-bottom:16px;">'
+        + '<h4>Install Terraform first</h4>'
+        + '<p style="margin-top:6px;">The deploy script needs Terraform installed on your computer. If you don\'t have it yet:</p>'
+        + '<ul style="margin-top:8px;padding-left:20px;line-height:1.8;">'
+        + '<li><strong>All platforms:</strong> Download from the official site</li>'
+        + '<li><strong>macOS:</strong> <code>brew install hashicorp/tap/terraform</code></li>'
+        + '<li><strong>Linux (apt):</strong> See the HashiCorp Linux repos</li>'
+        + '<li><strong>Windows:</strong> Download the .exe or use <code>choco install terraform</code></li>'
+        + '</ul>'
+        + '<a href="https://developer.hashicorp.com/terraform/install" target="_blank" rel="noopener" class="billing-link" style="margin-top:12px;">Download Terraform &rarr;</a>'
+        + '</div>';
+
     renderCmdBlocks('linuxCommands',   linux, 'linux');
     renderCmdBlocks('windowsCommands', win,   'windows');
 
-    // Append Tailscale + billing instructions after both command blocks
+    // Prepend Terraform install note, then append Tailscale + billing
+    el('linuxCommands').insertAdjacentHTML('afterbegin', terraformNote);
+    el('windowsCommands').insertAdjacentHTML('afterbegin', terraformNote);
     el('linuxCommands').insertAdjacentHTML('beforeend', tailscaleNote + billingNote);
     el('windowsCommands').insertAdjacentHTML('beforeend', tailscaleNote + billingNote);
 }
