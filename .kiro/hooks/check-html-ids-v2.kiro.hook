@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "HTML ID Check (kebab)",
+  "description": "Checks that critical kebab-case HTML element IDs referenced by app.js exist in index.html",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "node -e \"var h=require('fs').readFileSync('index.html','utf8'); var ids=['card1','card2','card3','card4','map','tailscale-key','provider-api-key','download-btn','next-to-card2','next-to-card3','next-to-card4','selection-summary','billing-panel','billing-acks','billing-next-actions','instructions-preview']; var missing=ids.filter(function(id){return h.indexOf('id=\\\"'+id+'\\\"')===-1}); if(missing.length){console.log('Missing IDs:',missing.join(', '));process.exit(1)}else{console.log('All critical HTML IDs present')}\""
+  }
+}
