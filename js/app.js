@@ -31,32 +31,32 @@ function el(id) {
 var card2 = el("card2");
 var card3 = el("card3");
 var card4 = el("card4");
-var instructionsPreview = el("instructionsPreview");
-var card1Actions = el("card1Actions");
-var providerPicker = el("providerPicker");
-var pickerCountryName = el("pickerCountryName");
-var pickerOptions = el("pickerOptions");
-var selectionSummary = el("selectionSummary");
-var selectionText = el("selectionText");
-var clearSelectionBtn = el("clearSelection");
-var nextToCard2Btn = el("nextToCard2");
-var nextToCard3Btn = el("nextToCard3");
-var nextToCard4Btn = el("nextToCard4");
-var accountCheck = el("accountCheck");
-var noAccountPanel = el("noAccountPanel");
-var billingPanel = el("billingPanel");
-var hasAccountBtn = el("hasAccountBtn");
-var noAccountBtn = el("noAccountBtn");
-var accountCreatedBtn = el("accountCreatedBtn");
-var providerNameCheck = el("providerNameCheck");
-var providerNameSignup = el("providerNameSignup");
-var providerNameSignupLink = el("providerNameSignupLink");
-var signupLink = el("signupLink");
-var tailscaleKeyInput = el("tailscaleKey");
-var tsKeyWarning = el("tsKeyWarning");
-var providerApiKeyInput = el("providerApiKey");
-var summaryGrid = el("summaryGrid");
-var downloadBtn = el("downloadBtn");
+var instructionsPreview = el("instructions-preview");
+var card1Actions = el("card1-actions");
+var providerPicker = el("provider-picker");
+var pickerCountryName = el("picker-country-name");
+var pickerOptions = el("picker-options");
+var selectionSummary = el("selection-summary");
+var selectionText = el("selection-text");
+var clearSelectionBtn = el("clear-selection");
+var nextToCard2Btn = el("next-to-card2");
+var nextToCard3Btn = el("next-to-card3");
+var nextToCard4Btn = el("next-to-card4");
+var accountCheck = el("account-check");
+var noAccountPanel = el("no-account-panel");
+var billingPanel = el("billing-panel");
+var hasAccountBtn = el("has-account-btn");
+var noAccountBtn = el("no-account-btn");
+var accountCreatedBtn = el("account-created-btn");
+var providerNameCheck = el("provider-name-check");
+var providerNameSignup = el("provider-name-signup");
+var providerNameSignupLink = el("provider-name-signup-link");
+var signupLink = el("signup-link");
+var tailscaleKeyInput = el("tailscale-key");
+var tsKeyWarning = el("ts-key-warning");
+var providerApiKeyInput = el("provider-api-key");
+var summaryGrid = el("summary-grid");
+var downloadBtn = el("download-btn");
 
 // --- Data + Map ---------------------------------------------------------
 
@@ -468,13 +468,13 @@ function collapseDownstreamCards() {
   accountCheck.style.display = "block";
   noAccountPanel.style.display = "none";
   billingPanel.style.display = "none";
-  el("billingAcks").innerHTML = "";
-  el("billingNextActions").style.display = "none";
+  el("billing-acks").innerHTML = "";
+  el("billing-next-actions").style.display = "none";
   // Reset card 3 Tailscale check
-  if (el("tailscaleAccountCheck"))
-    el("tailscaleAccountCheck").style.display = "block";
-  if (el("noTailscalePanel")) el("noTailscalePanel").style.display = "none";
-  if (el("credentialsForm")) el("credentialsForm").style.display = "none";
+  if (el("tailscale-account-check"))
+    el("tailscale-account-check").style.display = "block";
+  if (el("no-tailscale-panel")) el("no-tailscale-panel").style.display = "none";
+  if (el("credentials-form")) el("credentials-form").style.display = "none";
   state.skippedCredentials = false;
 }
 
@@ -500,8 +500,8 @@ nextToCard2Btn.addEventListener("click", function () {
 });
 
 function updateApiKeyLabel(displayName) {
-  var label = el("providerApiKeyLabel");
-  var hint = el("providerApiKeyHint");
+  var label = el("provider-api-key-label");
+  var hint = el("provider-api-key-hint");
   if (label) label.textContent = displayName + " API Token";
   if (hint && pricingData) {
     var prov = pricingData.providers[state.selectedProvider];
@@ -546,8 +546,8 @@ accountCreatedBtn.addEventListener("click", function () {
 });
 
 function showBillingPanel() {
-  el("billingAcks").innerHTML = "";
-  el("billingNextActions").style.display = "none";
+  el("billing-acks").innerHTML = "";
+  el("billing-next-actions").style.display = "none";
   billingPanel.style.display = "block";
   renderAcks();
   billingPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -576,14 +576,14 @@ function renderAcks() {
       a.text +
       "</span></label>";
   }
-  var div = el("billingAcks");
+  var div = el("billing-acks");
   div.innerHTML = html;
   var cbs = div.querySelectorAll(".billing-ack-cb");
   for (var j = 0; j < cbs.length; j++) {
     cbs[j].addEventListener("change", checkAcks);
   }
-  el("billingNextActions").style.display = "block";
-  el("nextToCard3").disabled = true;
+  el("billing-next-actions").style.display = "block";
+  el("next-to-card3").disabled = true;
   checkAcks();
   setTimeout(function () {
     div.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -598,7 +598,7 @@ function checkAcks() {
     all.every(function (cb) {
       return cb.checked;
     });
-  el("nextToCard3").disabled = !done;
+  el("next-to-card3").disabled = !done;
 }
 
 // Billing -> credentials
@@ -609,24 +609,24 @@ nextToCard3Btn.addEventListener("click", function () {
 // --- Card 3: Credentials -> Summary ------------------------------------
 
 // Tailscale account check
-el("hasTailscaleBtn").addEventListener("click", function () {
-  el("tailscaleAccountCheck").style.display = "none";
-  el("credentialsForm").style.display = "block";
-  el("credentialsForm").scrollIntoView({
+el("has-tailscale-btn").addEventListener("click", function () {
+  el("tailscale-account-check").style.display = "none";
+  el("credentials-form").style.display = "block";
+  el("credentials-form").scrollIntoView({
     behavior: "smooth",
     block: "nearest",
   });
 });
 
-el("noTailscaleBtn").addEventListener("click", function () {
-  el("tailscaleAccountCheck").style.display = "none";
-  el("noTailscalePanel").style.display = "block";
+el("no-tailscale-btn").addEventListener("click", function () {
+  el("tailscale-account-check").style.display = "none";
+  el("no-tailscale-panel").style.display = "block";
 });
 
-el("tailscaleCreatedBtn").addEventListener("click", function () {
-  el("noTailscalePanel").style.display = "none";
-  el("credentialsForm").style.display = "block";
-  el("credentialsForm").scrollIntoView({
+el("tailscale-created-btn").addEventListener("click", function () {
+  el("no-tailscale-panel").style.display = "none";
+  el("credentials-form").style.display = "block";
+  el("credentials-form").scrollIntoView({
     behavior: "smooth",
     block: "nearest",
   });
@@ -650,11 +650,11 @@ nextToCard4Btn.addEventListener("click", function () {
   state.skippedCredentials = false;
   renderSummary();
   revealCard(card4);
-  el("manualKeysReminder").style.display = "none";
+  el("manual-keys-reminder").style.display = "none";
   downloadBtn.disabled = false;
 });
 
-el("skipCredentials").addEventListener("click", function () {
+el("skip-credentials").addEventListener("click", function () {
   // User doesn't trust pasting keys here - proceed with placeholders
   tailscaleKeyInput.value = "";
   providerApiKeyInput.value = "";
@@ -662,9 +662,9 @@ el("skipCredentials").addEventListener("click", function () {
   renderSummary();
   revealCard(card4);
   // Show the manual keys reminder and disable download until ticked
-  el("manualKeysReminder").style.display = "block";
+  el("manual-keys-reminder").style.display = "block";
   downloadBtn.disabled = true;
-  el("manualKeysAck").addEventListener("change", function () {
+  el("manual-keys-ack").addEventListener("change", function () {
     downloadBtn.disabled = !this.checked;
   });
 });
@@ -1063,17 +1063,17 @@ function showDeploymentInstructions(provider) {
     '<a href="https://developer.hashicorp.com/terraform/install" target="_blank" rel="noopener" class="billing-link" style="margin-top:12px;">Download Terraform &rarr;</a>' +
     "</div>";
 
-  renderCmdBlocks("linuxCommands", linux, "linux");
-  renderCmdBlocks("windowsCommands", win, "windows");
+  renderCmdBlocks("linux-commands", linux, "linux");
+  renderCmdBlocks("windows-commands", win, "windows");
 
   // Prepend Terraform install note, then append Tailscale + billing
-  el("linuxCommands").insertAdjacentHTML("afterbegin", terraformNote);
-  el("windowsCommands").insertAdjacentHTML("afterbegin", terraformNote);
-  el("linuxCommands").insertAdjacentHTML(
+  el("linux-commands").insertAdjacentHTML("afterbegin", terraformNote);
+  el("windows-commands").insertAdjacentHTML("afterbegin", terraformNote);
+  el("linux-commands").insertAdjacentHTML(
     "beforeend",
     tailscaleNote + billingNote,
   );
-  el("windowsCommands").insertAdjacentHTML(
+  el("windows-commands").insertAdjacentHTML(
     "beforeend",
     tailscaleNote + billingNote,
   );
@@ -1128,8 +1128,8 @@ function showTab(platform) {
   var tabs = document.querySelectorAll(".tab-btn");
   for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
   tabs[platform === "linux" ? 0 : 1].classList.add("active");
-  el("linuxCommands").style.display = platform === "linux" ? "block" : "none";
-  el("windowsCommands").style.display =
+  el("linux-commands").style.display = platform === "linux" ? "block" : "none";
+  el("windows-commands").style.display =
     platform === "windows" ? "block" : "none";
 }
 
@@ -1166,7 +1166,7 @@ function updateMapTiles() {
 }
 
 (function () {
-  var toggle = document.getElementById("themeToggle");
+  var toggle = document.getElementById("theme-toggle");
   var saved = localStorage.getItem("theme");
   if (saved === "light") {
     document.body.classList.add("light-mode");

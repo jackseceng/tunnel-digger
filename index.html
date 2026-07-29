@@ -20,7 +20,7 @@
     <div class="container">
       <header>
         <button
-          id="themeToggle"
+          id="theme-toggle"
           class="theme-toggle"
           title="Toggle light/dark mode"
         >
@@ -46,25 +46,25 @@
 
         <div id="map"></div>
 
-        <div id="providerPicker" class="provider-picker" style="display: none">
+        <div id="provider-picker" class="provider-picker" style="display: none">
           <p class="picker-title">
             Multiple providers available in
-            <strong id="pickerCountryName"></strong> &mdash; choose one:
+            <strong id="picker-country-name"></strong> &mdash; choose one:
           </p>
-          <div id="pickerOptions" class="picker-options"></div>
+          <div id="picker-options" class="picker-options"></div>
         </div>
 
         <div
-          id="selectionSummary"
+          id="selection-summary"
           class="selection-summary"
           style="display: none"
         >
-          <span id="selectionText"></span>
-          <button id="clearSelection" class="btn-text">&#x2715; Change</button>
+          <span id="selection-text"></span>
+          <button id="clear-selection" class="btn-text">&#x2715; Change</button>
         </div>
 
-        <div class="card-actions" id="card1Actions" style="display: none">
-          <button id="nextToCard2" class="btn btn-primary">
+        <div class="card-actions" id="card1-actions" style="display: none">
+          <button id="next-to-card2" class="btn btn-primary">
             Next: Configure &rarr;
           </button>
         </div>
@@ -78,28 +78,28 @@
         </div>
 
         <!-- Account check -->
-        <div id="accountCheck">
+        <div id="account-check">
           <p class="account-question">
             Do you already have an account with
-            <strong id="providerNameCheck"></strong>?
+            <strong id="provider-name-check"></strong>?
           </p>
           <div class="account-btn-group">
-            <button id="hasAccountBtn" class="btn btn-outline-yes">
+            <button id="has-account-btn" class="btn btn-outline-yes">
               &#10003; Yes, I have an account
             </button>
-            <button id="noAccountBtn" class="btn btn-outline-no">
+            <button id="no-account-btn" class="btn btn-outline-no">
               &#10007; No, I need to create one
             </button>
           </div>
         </div>
 
         <!-- No account panel -->
-        <div id="noAccountPanel" style="display: none">
+        <div id="no-account-panel" style="display: none">
           <div class="info-box">
             <h4>&#x1F4CB; You'll need to create an account first</h4>
             <p>
               To deploy a VM you'll need an account with
-              <strong id="providerNameSignup"></strong> and a valid payment
+              <strong id="provider-name-signup"></strong> and a valid payment
               method.
             </p>
             <ul class="setup-steps">
@@ -109,17 +109,17 @@
               <li>Once you're in, come back here and continue</li>
             </ul>
             <a
-              id="signupLink"
+              id="signup-link"
               href="#"
               target="_blank"
               rel="noopener"
               class="billing-link signup-link"
             >
-              Create <span id="providerNameSignupLink"></span> Account &rarr;
+              Create <span id="provider-name-signup-link"></span> Account &rarr;
             </a>
           </div>
           <button
-            id="accountCreatedBtn"
+            id="account-created-btn"
             class="btn btn-primary"
             style="margin-top: 16px"
           >
@@ -128,15 +128,15 @@
         </div>
 
         <!-- Billing panel -->
-        <div id="billingPanel" style="display: none">
-          <div id="billingAcks" class="billing-acks"></div>
+        <div id="billing-panel" style="display: none">
+          <div id="billing-acks" class="billing-acks"></div>
 
           <div
             class="card-actions"
-            id="billingNextActions"
+            id="billing-next-actions"
             style="display: none"
           >
-            <button id="nextToCard3" class="btn btn-primary">
+            <button id="next-to-card3" class="btn btn-primary">
               Next: Enter Credentials &rarr;
             </button>
           </div>
@@ -151,20 +151,20 @@
         </div>
 
         <!-- Tailscale account check -->
-        <div id="tailscaleAccountCheck">
+        <div id="tailscale-account-check">
           <p class="account-question">Do you have a Tailscale account?</p>
           <div class="account-btn-group">
-            <button id="hasTailscaleBtn" class="btn btn-outline-yes">
+            <button id="has-tailscale-btn" class="btn btn-outline-yes">
               &#10003; Yes, I have one
             </button>
-            <button id="noTailscaleBtn" class="btn btn-outline-no">
+            <button id="no-tailscale-btn" class="btn btn-outline-no">
               &#10007; No, I need to sign up
             </button>
           </div>
         </div>
 
         <!-- No Tailscale account -->
-        <div id="noTailscalePanel" style="display: none">
+        <div id="no-tailscale-panel" style="display: none">
           <div class="info-box">
             <h4>&#x1F4CB; You'll need a Tailscale account</h4>
             <p>
@@ -191,7 +191,7 @@
             </a>
           </div>
           <button
-            id="tailscaleCreatedBtn"
+            id="tailscale-created-btn"
             class="btn btn-primary"
             style="margin-top: 16px"
           >
@@ -200,12 +200,12 @@
         </div>
 
         <!-- Credentials form (shown after Tailscale account confirmed) -->
-        <div id="credentialsForm" style="display: none">
+        <div id="credentials-form" style="display: none">
           <div class="form-group">
-            <label for="tailscaleKey">Tailscale Auth Key</label>
+            <label for="tailscale-key">Tailscale Auth Key</label>
             <input
               type="password"
-              id="tailscaleKey"
+              id="tailscale-key"
               placeholder="tskey-auth-..."
               required
             />
@@ -218,23 +218,26 @@
                 >Tailscale Admin &rarr; Settings &rarr; Keys</a
               ></small
             >
-            <span id="tsKeyWarning" class="field-warning" style="display: none"
+            <span
+              id="ts-key-warning"
+              class="field-warning"
+              style="display: none"
               >&#9888;&#65039; Key doesn't start with
               <code>tskey-</code> &mdash; please double-check it.</span
             >
           </div>
 
           <div class="form-group">
-            <label for="providerApiKey" id="providerApiKeyLabel"
+            <label for="provider-api-key" id="provider-api-key-label"
               >Provider API Token</label
             >
             <input
               type="password"
-              id="providerApiKey"
+              id="provider-api-key"
               placeholder="Paste your API token here..."
               required
             />
-            <small id="providerApiKeyHint"
+            <small id="provider-api-key-hint"
               >Written into <code>terraform.tfvars</code> only &mdash; never
               sent to any server.</small
             >
@@ -251,14 +254,14 @@
             <p style="margin-bottom: 10px; font-weight: 600">Next:</p>
             <div style="display: flex; gap: 12px; flex-wrap: wrap">
               <button
-                id="nextToCard4"
+                id="next-to-card4"
                 class="btn btn-primary"
                 style="flex: 1; min-width: 180px; width: auto"
               >
                 Review Summary &rarr;
               </button>
               <button
-                id="skipCredentials"
+                id="skip-credentials"
                 class="btn btn-success"
                 style="flex: 1; min-width: 180px"
               >
@@ -275,10 +278,10 @@
           <span class="card-number">4</span>
           <h2>Review Your Configuration</h2>
         </div>
-        <div class="summary-grid" id="summaryGrid"></div>
-        <div id="manualKeysReminder" style="display: none">
+        <div class="summary-grid" id="summary-grid"></div>
+        <div id="manual-keys-reminder" style="display: none">
           <label class="ack-item ack-item-warning">
-            <input type="checkbox" id="manualKeysAck" />
+            <input type="checkbox" id="manual-keys-ack" />
             <span
               >I understand that I chose not to enter my keys here, and I will
               need to open <code>terraform.tfvars</code> in a text editor and
@@ -288,7 +291,7 @@
           </label>
         </div>
         <div class="card-actions buttons">
-          <button id="downloadBtn" class="btn btn-success">
+          <button id="download-btn" class="btn btn-success">
             &#x2B07; Download Terraform Package
           </button>
           <button
@@ -302,7 +305,7 @@
       </section>
 
       <!-- Deployment Instructions -->
-      <section id="instructionsPreview" class="card" style="display: none">
+      <section id="instructions-preview" class="card" style="display: none">
         <div class="card-header">
           <span class="card-number">&#10003;</span>
           <h2>Deployment Instructions</h2>
@@ -313,8 +316,8 @@
           </button>
           <button class="tab-btn" onclick="showTab('windows')">Windows</button>
         </div>
-        <div id="linuxCommands"></div>
-        <div id="windowsCommands" style="display: none"></div>
+        <div id="linux-commands"></div>
+        <div id="windows-commands" style="display: none"></div>
       </section>
 
       <footer>
