@@ -13,7 +13,7 @@ No outbound requests carry your credentials.
 ## What Gets Generated
 
 | File | Contains Secrets? | Git-Safe? |
-|------|------------------|-----------|
+| ---- | ----------------- | --------- |
 | `main.tf` | No | Yes |
 | `variables.tf` | No | Yes |
 | `cloud-init.yaml` | No (uses Terraform variable reference) | Yes |
