@@ -960,6 +960,7 @@ body.light-mode .card-number {
 body.light-mode .form-group label {
   color: #333;
 }
+
 body.light-mode .form-group input,
 body.light-mode .form-group select {
   background: white;

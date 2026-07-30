@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Stylelint Check",
+  "description": "Runs stylelint with the standard config on styles.css to catch CSS lint issues matching what CI checks",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx --yes stylelint --config '{\"extends\":\"stylelint-config-standard\"}' css/styles.css 2>&1 | tail -5 || true",
+    "timeout": 30
+  }
+}
