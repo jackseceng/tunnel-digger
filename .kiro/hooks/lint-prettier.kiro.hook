@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Prettier Check",
+  "description": "Checks JS, CSS, and HTML formatting with Prettier (matches the VALIDATE_JAVASCRIPT_PRETTIER and VALIDATE_CSS in the CI lint workflow)",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx --yes prettier --check \"js/**/*.js\" \"css/**/*.css\" \"*.html\" 2>&1 | tail -5 || true",
+    "timeout": 30
+  }
+}

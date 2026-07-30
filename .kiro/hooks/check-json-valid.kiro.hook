@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "JSON Validation",
+  "description": "Validates pricing.json is valid JSON after every agent stop",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "node -e \"JSON.parse(require('fs').readFileSync('js/pricing.json','utf8'))\" && echo \"✅ JSON OK\" || echo \"❌ JSON ERROR\""
+  }
+}
