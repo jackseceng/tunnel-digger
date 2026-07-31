@@ -1110,8 +1110,14 @@ function showDeploymentInstructions(provider) {
   renderCmdBlocks("windows-commands", win, "windows");
 
   // Prepend desktop hint + Terraform install note, then append Tailscale + billing
-  el("linux-commands").insertAdjacentHTML("afterbegin", desktopNote + terraformNote);
-  el("windows-commands").insertAdjacentHTML("afterbegin", desktopNote + terraformNote);
+  el("linux-commands").insertAdjacentHTML(
+    "afterbegin",
+    desktopNote + terraformNote,
+  );
+  el("windows-commands").insertAdjacentHTML(
+    "afterbegin",
+    desktopNote + terraformNote,
+  );
   el("linux-commands").insertAdjacentHTML(
     "beforeend",
     tailscaleNote + billingNote,

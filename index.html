@@ -40,37 +40,47 @@
           <h2>Choose Your Exit Node Location</h2>
           <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
-        <div class="card-summary-line" id="card1-summary" style="display: none"></div>
-        <div class="card-body" id="card1-body">
-        <p class="map-hint">
-          Hover over a highlighted country to see available providers and
-          pricing, then click to select.
-        </p>
-
-        <div id="map"></div>
-
-        <div id="provider-picker" class="provider-picker" style="display: none">
-          <p class="picker-title">
-            Multiple providers available in
-            <strong id="picker-country-name"></strong> &mdash; choose one:
-          </p>
-          <div id="picker-options" class="picker-options"></div>
-        </div>
-
         <div
-          id="selection-summary"
-          class="selection-summary"
+          class="card-summary-line"
+          id="card1-summary"
           style="display: none"
-        >
-          <span id="selection-text"></span>
-          <button id="clear-selection" class="btn-text">&#x2715; Change</button>
-        </div>
+        ></div>
+        <div class="card-body" id="card1-body">
+          <p class="map-hint">
+            Hover over a highlighted country to see available providers and
+            pricing, then click to select.
+          </p>
 
-        <div class="card-actions" id="card1-actions" style="display: none">
-          <button id="next-to-card2" class="btn btn-primary">
-            Next: Configure &rarr;
-          </button>
-        </div>
+          <div id="map"></div>
+
+          <div
+            id="provider-picker"
+            class="provider-picker"
+            style="display: none"
+          >
+            <p class="picker-title">
+              Multiple providers available in
+              <strong id="picker-country-name"></strong> &mdash; choose one:
+            </p>
+            <div id="picker-options" class="picker-options"></div>
+          </div>
+
+          <div
+            id="selection-summary"
+            class="selection-summary"
+            style="display: none"
+          >
+            <span id="selection-text"></span>
+            <button id="clear-selection" class="btn-text">
+              &#x2715; Change
+            </button>
+          </div>
+
+          <div class="card-actions" id="card1-actions" style="display: none">
+            <button id="next-to-card2" class="btn btn-primary">
+              Next: Configure &rarr;
+            </button>
+          </div>
         </div>
       </section>
 
@@ -81,73 +91,77 @@
           <h2>Set Up Hosting Provider</h2>
           <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
-        <div class="card-summary-line" id="card2-summary" style="display: none"></div>
+        <div
+          class="card-summary-line"
+          id="card2-summary"
+          style="display: none"
+        ></div>
         <div class="card-body" id="card2-body">
-
-        <!-- Account check -->
-        <div id="account-check">
-          <p class="account-question">
-            Do you already have an account with
-            <strong id="provider-name-check"></strong>?
-          </p>
-          <div class="account-btn-group">
-            <button id="has-account-btn" class="btn btn-outline-yes">
-              &#10003; Yes, I have an account
-            </button>
-            <button id="no-account-btn" class="btn btn-outline-no">
-              &#10007; No, I need to create one
-            </button>
-          </div>
-        </div>
-
-        <!-- No account panel -->
-        <div id="no-account-panel" style="display: none">
-          <div class="info-box">
-            <h4>&#x1F4CB; You'll need to create an account first</h4>
-            <p>
-              To deploy a VM you'll need an account with
-              <strong id="provider-name-signup"></strong> and a valid payment
-              method.
+          <!-- Account check -->
+          <div id="account-check">
+            <p class="account-question">
+              Do you already have an account with
+              <strong id="provider-name-check"></strong>?
             </p>
-            <ul class="setup-steps">
-              <li>Go to the sign-up page below and create a free account</li>
-              <li>Add a credit/debit card or PayPal when prompted</li>
-              <li>Verify your email address</li>
-              <li>Once you're in, come back here and continue</li>
-            </ul>
-            <a
-              id="signup-link"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              class="billing-link signup-link"
-            >
-              Create <span id="provider-name-signup-link"></span> Account &rarr;
-            </a>
+            <div class="account-btn-group">
+              <button id="has-account-btn" class="btn btn-outline-yes">
+                &#10003; Yes, I have an account
+              </button>
+              <button id="no-account-btn" class="btn btn-outline-no">
+                &#10007; No, I need to create one
+              </button>
+            </div>
           </div>
-          <button
-            id="account-created-btn"
-            class="btn btn-primary"
-            style="margin-top: 16px"
-          >
-            I've created my account &rarr;
-          </button>
-        </div>
 
-        <!-- Billing panel -->
-        <div id="billing-panel" style="display: none">
-          <div id="billing-acks" class="billing-acks"></div>
-
-          <div
-            class="card-actions"
-            id="billing-next-actions"
-            style="display: none"
-          >
-            <button id="next-to-card3" class="btn btn-primary">
-              Next: Enter Credentials &rarr;
+          <!-- No account panel -->
+          <div id="no-account-panel" style="display: none">
+            <div class="info-box">
+              <h4>&#x1F4CB; You'll need to create an account first</h4>
+              <p>
+                To deploy a VM you'll need an account with
+                <strong id="provider-name-signup"></strong> and a valid payment
+                method.
+              </p>
+              <ul class="setup-steps">
+                <li>Go to the sign-up page below and create a free account</li>
+                <li>Add a credit/debit card or PayPal when prompted</li>
+                <li>Verify your email address</li>
+                <li>Once you're in, come back here and continue</li>
+              </ul>
+              <a
+                id="signup-link"
+                href="#"
+                target="_blank"
+                rel="noopener"
+                class="billing-link signup-link"
+              >
+                Create <span id="provider-name-signup-link"></span> Account
+                &rarr;
+              </a>
+            </div>
+            <button
+              id="account-created-btn"
+              class="btn btn-primary"
+              style="margin-top: 16px"
+            >
+              I've created my account &rarr;
             </button>
           </div>
-        </div>
+
+          <!-- Billing panel -->
+          <div id="billing-panel" style="display: none">
+            <div id="billing-acks" class="billing-acks"></div>
+
+            <div
+              class="card-actions"
+              id="billing-next-actions"
+              style="display: none"
+            >
+              <button id="next-to-card3" class="btn btn-primary">
+                Next: Enter Credentials &rarr;
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -158,129 +172,132 @@
           <h2>Enter Your Credentials</h2>
           <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
-        <div class="card-summary-line" id="card3-summary" style="display: none"></div>
+        <div
+          class="card-summary-line"
+          id="card3-summary"
+          style="display: none"
+        ></div>
         <div class="card-body" id="card3-body">
-
-        <!-- Tailscale account check -->
-        <div id="tailscale-account-check">
-          <p class="account-question">Do you have a Tailscale account?</p>
-          <div class="account-btn-group">
-            <button id="has-tailscale-btn" class="btn btn-outline-yes">
-              &#10003; Yes, I have one
-            </button>
-            <button id="no-tailscale-btn" class="btn btn-outline-no">
-              &#10007; No, I need to sign up
-            </button>
-          </div>
-        </div>
-
-        <!-- No Tailscale account -->
-        <div id="no-tailscale-panel" style="display: none">
-          <div class="info-box">
-            <h4>&#x1F4CB; You'll need a Tailscale account</h4>
-            <p>
-              Tailscale is the VPN mesh that your exit node connects to. Sign up
-              is free for personal use.
-            </p>
-            <ul class="setup-steps">
-              <li>
-                Go to tailscale.com and sign up (Google, Microsoft, GitHub or
-                email)
-              </li>
-              <li>
-                Install Tailscale on the device you want to route traffic from
-              </li>
-              <li>Come back here once you're logged in</li>
-            </ul>
-            <a
-              href="https://login.tailscale.com/start"
-              target="_blank"
-              rel="noopener"
-              class="billing-link signup-link"
-            >
-              Sign up for Tailscale &rarr;
-            </a>
-          </div>
-          <button
-            id="tailscale-created-btn"
-            class="btn btn-primary"
-            style="margin-top: 16px"
-          >
-            I've signed up &rarr;
-          </button>
-        </div>
-
-        <!-- Credentials form (shown after Tailscale account confirmed) -->
-        <div id="credentials-form" style="display: none">
-          <div class="form-group">
-            <label for="tailscale-key">Tailscale Auth Key</label>
-            <input
-              type="password"
-              id="tailscale-key"
-              placeholder="tskey-auth-..."
-              required
-            />
-            <small
-              >Get this from
-              <a
-                href="https://login.tailscale.com/admin/settings/keys"
-                target="_blank"
-                rel="noopener"
-                >Tailscale Admin &rarr; Settings &rarr; Keys</a
-              ></small
-            >
-            <span
-              id="ts-key-warning"
-              class="field-warning"
-              style="display: none"
-              >&#9888;&#65039; Key doesn't start with
-              <code>tskey-</code> &mdash; please double-check it.</span
-            >
-          </div>
-
-          <div class="form-group">
-            <label for="provider-api-key" id="provider-api-key-label"
-              >Provider API Token</label
-            >
-            <input
-              type="password"
-              id="provider-api-key"
-              placeholder="Paste your API token here..."
-              required
-            />
-            <small id="provider-api-key-hint"
-              >Written into <code>terraform.tfvars</code> only &mdash; never
-              sent to any server.</small
-            >
-          </div>
-
-          <p class="map-hint" style="margin-top: 20px; margin-bottom: 12px">
-            &#x1F512;
-            <strong>This page runs entirely in your browser.</strong> Nothing
-            you type here is sent anywhere &mdash; your tokens go straight into
-            the files you download. You can verify this by checking your
-            browser's network tab.
-          </p>
-          <div class="card-actions">
-            <p style="margin-bottom: 10px; font-weight: 600">Next:</p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap">
-              <button
-                id="next-to-card4"
-                class="btn btn-primary"
-                style="flex: 1; min-width: 180px; width: auto"
-              >
-                Review Summary &rarr;
+          <!-- Tailscale account check -->
+          <div id="tailscale-account-check">
+            <p class="account-question">Do you have a Tailscale account?</p>
+            <div class="account-btn-group">
+              <button id="has-tailscale-btn" class="btn btn-outline-yes">
+                &#10003; Yes, I have one
               </button>
-              <button
-                id="skip-credentials"
-                class="btn btn-success"
-                style="flex: 1; min-width: 180px"
-              >
-                I don't trust you &rarr;
+              <button id="no-tailscale-btn" class="btn btn-outline-no">
+                &#10007; No, I need to sign up
               </button>
             </div>
           </div>
-        </div>
+
+          <!-- No Tailscale account -->
+          <div id="no-tailscale-panel" style="display: none">
+            <div class="info-box">
+              <h4>&#x1F4CB; You'll need a Tailscale account</h4>
+              <p>
+                Tailscale is the VPN mesh that your exit node connects to. Sign
+                up is free for personal use.
+              </p>
+              <ul class="setup-steps">
+                <li>
+                  Go to tailscale.com and sign up (Google, Microsoft, GitHub or
+                  email)
+                </li>
+                <li>
+                  Install Tailscale on the device you want to route traffic from
+                </li>
+                <li>Come back here once you're logged in</li>
+              </ul>
+              <a
+                href="https://login.tailscale.com/start"
+                target="_blank"
+                rel="noopener"
+                class="billing-link signup-link"
+              >
+                Sign up for Tailscale &rarr;
+              </a>
+            </div>
+            <button
+              id="tailscale-created-btn"
+              class="btn btn-primary"
+              style="margin-top: 16px"
+            >
+              I've signed up &rarr;
+            </button>
+          </div>
+
+          <!-- Credentials form (shown after Tailscale account confirmed) -->
+          <div id="credentials-form" style="display: none">
+            <div class="form-group">
+              <label for="tailscale-key">Tailscale Auth Key</label>
+              <input
+                type="password"
+                id="tailscale-key"
+                placeholder="tskey-auth-..."
+                required
+              />
+              <small
+                >Get this from
+                <a
+                  href="https://login.tailscale.com/admin/settings/keys"
+                  target="_blank"
+                  rel="noopener"
+                  >Tailscale Admin &rarr; Settings &rarr; Keys</a
+                ></small
+              >
+              <span
+                id="ts-key-warning"
+                class="field-warning"
+                style="display: none"
+                >&#9888;&#65039; Key doesn't start with
+                <code>tskey-</code> &mdash; please double-check it.</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="provider-api-key" id="provider-api-key-label"
+                >Provider API Token</label
+              >
+              <input
+                type="password"
+                id="provider-api-key"
+                placeholder="Paste your API token here..."
+                required
+              />
+              <small id="provider-api-key-hint"
+                >Written into <code>terraform.tfvars</code> only &mdash; never
+                sent to any server.</small
+              >
+            </div>
+
+            <p class="map-hint" style="margin-top: 20px; margin-bottom: 12px">
+              &#x1F512;
+              <strong>This page runs entirely in your browser.</strong> Nothing
+              you type here is sent anywhere &mdash; your tokens go straight
+              into the files you download. You can verify this by checking your
+              browser's network tab.
+            </p>
+            <div class="card-actions">
+              <p style="margin-bottom: 10px; font-weight: 600">Next:</p>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap">
+                <button
+                  id="next-to-card4"
+                  class="btn btn-primary"
+                  style="flex: 1; min-width: 180px; width: auto"
+                >
+                  Review Summary &rarr;
+                </button>
+                <button
+                  id="skip-credentials"
+                  class="btn btn-success"
+                  style="flex: 1; min-width: 180px"
+                >
+                  I don't trust you &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -291,7 +308,11 @@
           <h2>Review Your Configuration</h2>
           <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
-        <div class="card-summary-line" id="card4-summary" style="display: none"></div>
+        <div
+          class="card-summary-line"
+          id="card4-summary"
+          style="display: none"
+        ></div>
         <div class="card-body" id="card4-body">
           <div class="summary-grid" id="summary-grid"></div>
           <div id="manual-keys-reminder" style="display: none">
@@ -301,8 +322,7 @@
                 >I understand that I chose not to enter my keys here, and I will
                 need to open <code>terraform.tfvars</code> in a text editor and
                 replace the placeholder values with my real Tailscale auth key
-                and provider API token before running the deploy
-                script.</span
+                and provider API token before running the deploy script.</span
               >
             </label>
           </div>
@@ -328,14 +348,16 @@
           <h2>Deployment Instructions</h2>
         </div>
         <div class="card-body" id="instructions-body">
-        <div class="terminal-tabs">
-          <button class="tab-btn active" onclick="showTab('linux')">
-            Linux / macOS
-          </button>
-          <button class="tab-btn" onclick="showTab('windows')">Windows</button>
-        </div>
-        <div id="linux-commands"></div>
-        <div id="windows-commands" style="display: none"></div>
+          <div class="terminal-tabs">
+            <button class="tab-btn active" onclick="showTab('linux')">
+              Linux / macOS
+            </button>
+            <button class="tab-btn" onclick="showTab('windows')">
+              Windows
+            </button>
+          </div>
+          <div id="linux-commands"></div>
+          <div id="windows-commands" style="display: none"></div>
         </div>
       </section>
 

@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "JS Prettier on Edit",
+  "description": "Runs Prettier formatting check on JS files when edited, catching style issues before they reach CI.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.js"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx --yes prettier --check js/app.js 2>&1 | tail -5 || true",
+    "timeout": 30
+  }
+}
