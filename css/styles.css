@@ -967,10 +967,10 @@ footer a:hover {
 /* ── Sub-panel transitions (within cards) ─────────────────────────────────── */
 
 .panel-fade {
-  animation: panelFadeIn 0.3s ease;
+  animation: panel-fade-in 0.3s ease;
 }
 
-@keyframes panelFadeIn {
+@keyframes panel-fade-in {
   from {
     opacity: 0;
     transform: translateY(8px);

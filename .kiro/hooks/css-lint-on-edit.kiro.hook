@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "CSS Lint on Edit",
+  "description": "Runs stylelint on CSS files whenever they are edited, catching naming convention and other lint issues before they reach CI.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.css"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx --yes stylelint --config '{\"extends\":\"stylelint-config-standard\"}' css/styles.css 2>&1 | tail -10 || true",
+    "timeout": 30
+  }
+}
