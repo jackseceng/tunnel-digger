@@ -24,7 +24,7 @@
           class="theme-toggle"
           title="Toggle light/dark mode"
         >
-          &#x1F31E;
+          &#x2600;&#xFE0F;
         </button>
         <h1>&#x1F98A; Tailscale Exit Node Generator</h1>
         <p class="subtitle">
@@ -35,10 +35,13 @@
 
       <!-- Card 1: Map -->
       <section id="card1" class="card">
-        <div class="card-header">
+        <div class="card-header" id="card1-header">
           <span class="card-number">1</span>
           <h2>Choose Your Exit Node Location</h2>
+          <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
+        <div class="card-summary-line" id="card1-summary" style="display: none"></div>
+        <div class="card-body" id="card1-body">
         <p class="map-hint">
           Hover over a highlighted country to see available providers and
           pricing, then click to select.
@@ -68,14 +71,18 @@
             Next: Configure &rarr;
           </button>
         </div>
+        </div>
       </section>
 
       <!-- Card 2: Account + Billing -->
       <section id="card2" class="card" style="display: none">
-        <div class="card-header">
+        <div class="card-header" id="card2-header">
           <span class="card-number">2</span>
           <h2>Set Up Hosting Provider</h2>
+          <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
+        <div class="card-summary-line" id="card2-summary" style="display: none"></div>
+        <div class="card-body" id="card2-body">
 
         <!-- Account check -->
         <div id="account-check">
@@ -141,14 +148,18 @@
             </button>
           </div>
         </div>
+        </div>
       </section>
 
       <!-- Card 3: Credentials -->
       <section id="card3" class="card" style="display: none">
-        <div class="card-header">
+        <div class="card-header" id="card3-header">
           <span class="card-number">3</span>
           <h2>Enter Your Credentials</h2>
+          <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
+        <div class="card-summary-line" id="card3-summary" style="display: none"></div>
+        <div class="card-body" id="card3-body">
 
         <!-- Tailscale account check -->
         <div id="tailscale-account-check">
@@ -270,37 +281,43 @@
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       <!-- Card 4: Summary -->
       <section id="card4" class="card card-summary" style="display: none">
-        <div class="card-header">
+        <div class="card-header" id="card4-header">
           <span class="card-number">4</span>
           <h2>Review Your Configuration</h2>
+          <span class="card-collapse-chevron">&#x25BC;</span>
         </div>
-        <div class="summary-grid" id="summary-grid"></div>
-        <div id="manual-keys-reminder" style="display: none">
-          <label class="ack-item ack-item-warning">
-            <input type="checkbox" id="manual-keys-ack" />
-            <span
-              >I understand that I chose not to enter my keys here, and I will
-              need to open <code>terraform.tfvars</code> in a text editor and
-              replace the placeholder values with my real Tailscale auth key and
-              provider API token before running the deploy script.</span
+        <div class="card-summary-line" id="card4-summary" style="display: none"></div>
+        <div class="card-body" id="card4-body">
+          <div class="summary-grid" id="summary-grid"></div>
+          <div id="manual-keys-reminder" style="display: none">
+            <label class="ack-item ack-item-warning">
+              <input type="checkbox" id="manual-keys-ack" />
+              <span
+                >I understand that I chose not to enter my keys here, and I will
+                need to open <code>terraform.tfvars</code> in a text editor and
+                replace the placeholder values with my real Tailscale auth key
+                and provider API token before running the deploy
+                script.</span
+              >
+            </label>
+          </div>
+          <div class="card-actions buttons">
+            <button id="download-btn" class="btn btn-success">
+              &#x2B07; Download Terraform Package
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="location.reload()"
             >
-          </label>
-        </div>
-        <div class="card-actions buttons">
-          <button id="download-btn" class="btn btn-success">
-            &#x2B07; Download Terraform Package
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            onclick="location.reload()"
-          >
-            Start Over
-          </button>
+              Start Over
+            </button>
+          </div>
         </div>
       </section>
 
@@ -310,6 +327,7 @@
           <span class="card-number">&#10003;</span>
           <h2>Deployment Instructions</h2>
         </div>
+        <div class="card-body" id="instructions-body">
         <div class="terminal-tabs">
           <button class="tab-btn active" onclick="showTab('linux')">
             Linux / macOS
@@ -318,6 +336,7 @@
         </div>
         <div id="linux-commands"></div>
         <div id="windows-commands" style="display: none"></div>
+        </div>
       </section>
 
       <footer>

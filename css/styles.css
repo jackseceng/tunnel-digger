@@ -75,6 +75,57 @@ header h1 {
   margin-bottom: 24px;
 }
 
+.card-header.card-header-clickable {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px;
+  margin: -8px -8px 24px;
+  transition: background 0.2s;
+}
+
+.card-header.card-header-clickable:hover {
+  background: rgb(124 58 237 / 8%);
+}
+
+.card-collapsed .card-header {
+  margin-bottom: 0;
+}
+
+.card-collapsed .card-header.card-header-clickable {
+  margin-bottom: -8px;
+}
+
+.card-body {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card-collapsed .card-body {
+  display: none;
+}
+
+.card-summary-line {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+.card-collapsed .card-summary-line {
+  margin-top: 8px;
+}
+
+.card-collapse-chevron {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: #64748b;
+  transition: transform 0.3s;
+}
+
+.card-collapsed .card-collapse-chevron {
+  transform: rotate(-90deg);
+}
+
 .card-number {
   display: flex;
   align-items: center;
@@ -891,6 +942,10 @@ footer a:hover {
     font-size: 1.4rem;
   }
 
+  #map {
+    height: 300px;
+  }
+
   .summary-grid {
     grid-template-columns: 1fr;
   }
@@ -898,25 +953,66 @@ footer a:hover {
   .buttons {
     flex-direction: column;
   }
+
+  .picker-options {
+    flex-direction: column;
+  }
+
+  .selection-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ── Sub-panel transitions (within cards) ─────────────────────────────────── */
+
+.panel-fade {
+  animation: panelFadeIn 0.3s ease;
+}
+
+@keyframes panelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Desktop hint (shown only on mobile) ──────────────────────────────────── */
+
+.desktop-hint {
+  display: none;
+}
+
+@media (width <= 600px) {
+  .desktop-hint {
+    display: block;
+  }
 }
 
 /* ── Theme Toggle Button ─────────────────────────────────────────────────────── */
 
 .theme-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: none;
   border: 2px solid #4c1d95;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
+  width: 48px;
+  height: 48px;
+  font-size: 1.4rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 40%);
 }
 
 .theme-toggle:hover {
@@ -1155,4 +1251,25 @@ body.light-mode .billing-link {
 
 body.light-mode .billing-link:hover {
   background: #5a45d4;
+}
+
+body.light-mode .desktop-hint {
+  background: #fffbeb !important;
+  border-color: #f59e0b !important;
+}
+
+body.light-mode .desktop-hint h4 {
+  color: #92400e;
+}
+
+body.light-mode .desktop-hint p {
+  color: #78350f !important;
+}
+
+body.light-mode .card-summary-line {
+  color: #6d4aff;
+}
+
+body.light-mode .card-header.card-header-clickable:hover {
+  background: rgb(109 74 255 / 6%);
 }
