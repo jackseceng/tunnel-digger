@@ -27,6 +27,18 @@ function el(id) {
   return document.getElementById(id);
 }
 
+function showPanel(panel, displayType) {
+  panel.style.display = displayType || "block";
+  panel.classList.remove("panel-fade");
+  void panel.offsetWidth; // trigger reflow
+  panel.classList.add("panel-fade");
+}
+
+function hidePanel(panel) {
+  panel.style.display = "none";
+  panel.classList.remove("panel-fade");
+}
+
 // DOM refs - all present in index.html
 var card2 = el("card2");
 var card3 = el("card3");
@@ -229,7 +241,7 @@ function addSmallCountryMarkers() {
                 });
               })(btns[k], opts);
             }
-            providerPicker.style.display = "block";
+            showPanel(providerPicker);
             providerPicker.scrollIntoView({
               behavior: "smooth",
               block: "nearest",
@@ -419,7 +431,7 @@ function selectCountry(feature, opts) {
         });
       })(btns[j], opts);
     }
-    providerPicker.style.display = "block";
+    showPanel(providerPicker);
     providerPicker.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 }
@@ -452,7 +464,10 @@ function commitSelection(iso2, option) {
     option.plan.price.toFixed(2) +
     "/mo";
   selectionSummary.style.display = "flex";
-  card1Actions.style.display = "block";
+  selectionSummary.classList.remove("panel-fade");
+  void selectionSummary.offsetWidth;
+  selectionSummary.classList.add("panel-fade");
+  showPanel(card1Actions);
   providerPicker.style.display = "none";
   hideTooltip();
 
@@ -466,15 +481,15 @@ function collapseDownstreamCards() {
     cards[i].classList.remove("card-visible");
   }
   accountCheck.style.display = "block";
-  noAccountPanel.style.display = "none";
-  billingPanel.style.display = "none";
+  hidePanel(noAccountPanel);
+  hidePanel(billingPanel);
   el("billing-acks").innerHTML = "";
   el("billing-next-actions").style.display = "none";
   // Reset card 3 Tailscale check
   if (el("tailscale-account-check"))
     el("tailscale-account-check").style.display = "block";
-  if (el("no-tailscale-panel")) el("no-tailscale-panel").style.display = "none";
-  if (el("credentials-form")) el("credentials-form").style.display = "none";
+  if (el("no-tailscale-panel")) hidePanel(el("no-tailscale-panel"));
+  if (el("credentials-form")) hidePanel(el("credentials-form"));
   state.skippedCredentials = false;
 }
 
@@ -496,6 +511,7 @@ clearSelectionBtn.addEventListener("click", function () {
 // --- Card 1 -> 2 -------------------------------------------------------
 
 nextToCard2Btn.addEventListener("click", function () {
+  collapseCard(el("card1"), selectionText.textContent);
   openCard2();
 });
 
@@ -531,26 +547,34 @@ function openCard2() {
 }
 
 hasAccountBtn.addEventListener("click", function () {
-  accountCheck.style.display = "none";
-  showBillingPanel();
+  hidePanel(accountCheck);
+  setTimeout(function () {
+    showBillingPanel();
+  }, 50);
 });
 
 noAccountBtn.addEventListener("click", function () {
-  accountCheck.style.display = "none";
-  noAccountPanel.style.display = "block";
+  hidePanel(accountCheck);
+  setTimeout(function () {
+    showPanel(noAccountPanel);
+  }, 50);
 });
 
 accountCreatedBtn.addEventListener("click", function () {
-  noAccountPanel.style.display = "none";
-  showBillingPanel();
+  hidePanel(noAccountPanel);
+  setTimeout(function () {
+    showBillingPanel();
+  }, 50);
 });
 
 function showBillingPanel() {
   el("billing-acks").innerHTML = "";
   el("billing-next-actions").style.display = "none";
-  billingPanel.style.display = "block";
   renderAcks();
-  billingPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  showPanel(billingPanel);
+  setTimeout(function () {
+    billingPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 50);
 }
 
 function renderAcks() {
@@ -603,6 +627,8 @@ function checkAcks() {
 
 // Billing -> credentials
 nextToCard3Btn.addEventListener("click", function () {
+  var prov = pricingData.providers[state.selectedProvider];
+  collapseCard(card2, prov.displayName + " account confirmed");
   revealCard(card3);
 });
 
@@ -610,26 +636,32 @@ nextToCard3Btn.addEventListener("click", function () {
 
 // Tailscale account check
 el("has-tailscale-btn").addEventListener("click", function () {
-  el("tailscale-account-check").style.display = "none";
-  el("credentials-form").style.display = "block";
-  el("credentials-form").scrollIntoView({
-    behavior: "smooth",
-    block: "nearest",
-  });
+  hidePanel(el("tailscale-account-check"));
+  setTimeout(function () {
+    showPanel(el("credentials-form"));
+    el("credentials-form").scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  }, 50);
 });
 
 el("no-tailscale-btn").addEventListener("click", function () {
-  el("tailscale-account-check").style.display = "none";
-  el("no-tailscale-panel").style.display = "block";
+  hidePanel(el("tailscale-account-check"));
+  setTimeout(function () {
+    showPanel(el("no-tailscale-panel"));
+  }, 50);
 });
 
 el("tailscale-created-btn").addEventListener("click", function () {
-  el("no-tailscale-panel").style.display = "none";
-  el("credentials-form").style.display = "block";
-  el("credentials-form").scrollIntoView({
-    behavior: "smooth",
-    block: "nearest",
-  });
+  hidePanel(el("no-tailscale-panel"));
+  setTimeout(function () {
+    showPanel(el("credentials-form"));
+    el("credentials-form").scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  }, 50);
 });
 
 tailscaleKeyInput.addEventListener("input", function () {
@@ -648,6 +680,7 @@ nextToCard4Btn.addEventListener("click", function () {
     return;
   }
   state.skippedCredentials = false;
+  collapseCard(card3, "Credentials entered");
   renderSummary();
   revealCard(card4);
   el("manual-keys-reminder").style.display = "none";
@@ -659,14 +692,17 @@ el("skip-credentials").addEventListener("click", function () {
   tailscaleKeyInput.value = "";
   providerApiKeyInput.value = "";
   state.skippedCredentials = true;
+  collapseCard(card3, "Keys will be added manually");
   renderSummary();
   revealCard(card4);
   // Show the manual keys reminder and disable download until ticked
   el("manual-keys-reminder").style.display = "block";
+  var ackCb = el("manual-keys-ack");
+  ackCb.checked = false;
   downloadBtn.disabled = true;
-  el("manual-keys-ack").addEventListener("change", function () {
-    downloadBtn.disabled = !this.checked;
-  });
+  ackCb.onchange = function () {
+    downloadBtn.disabled = !ackCb.checked;
+  };
 });
 
 // --- Card 4: Summary ---------------------------------------------------
@@ -738,6 +774,7 @@ downloadBtn.addEventListener("click", function () {
     })
     .then(function () {
       showDeploymentInstructions(state.selectedProvider);
+      collapseCard(card4, "Package downloaded");
       revealCard(instructionsPreview);
     });
 });
@@ -1050,6 +1087,12 @@ function showDeploymentInstructions(provider) {
     { label: "Enter the folder", cmd: "cd tailscale-exit-node" },
     { label: "Run the deploy script", cmd: ".\\deploy.ps1" },
   ];
+  var desktopNote =
+    '<div class="info-box desktop-hint" style="margin-bottom:16px;border-color:#d97706;background:#1c1917;">' +
+    "<h4>&#x1F4BB; Best done on a desktop</h4>" +
+    '<p style="margin-top:6px;color:#fde68a;">These next steps require a terminal (command line). If you\'re on a phone, save the downloaded zip and continue on a computer with a terminal.</p>' +
+    "</div>";
+
   var terraformNote =
     '<div class="info-box" style="margin-bottom:16px;">' +
     "<h4>Install Terraform first</h4>" +
@@ -1066,9 +1109,15 @@ function showDeploymentInstructions(provider) {
   renderCmdBlocks("linux-commands", linux, "linux");
   renderCmdBlocks("windows-commands", win, "windows");
 
-  // Prepend Terraform install note, then append Tailscale + billing
-  el("linux-commands").insertAdjacentHTML("afterbegin", terraformNote);
-  el("windows-commands").insertAdjacentHTML("afterbegin", terraformNote);
+  // Prepend desktop hint + Terraform install note, then append Tailscale + billing
+  el("linux-commands").insertAdjacentHTML(
+    "afterbegin",
+    desktopNote + terraformNote,
+  );
+  el("windows-commands").insertAdjacentHTML(
+    "afterbegin",
+    desktopNote + terraformNote,
+  );
   el("linux-commands").insertAdjacentHTML(
     "beforeend",
     tailscaleNote + billingNote,
@@ -1137,11 +1186,82 @@ function showTab(platform) {
 
 function revealCard(cardEl) {
   cardEl.style.display = "block";
+  cardEl.classList.remove("card-collapsed");
   setTimeout(function () {
     cardEl.classList.add("card-visible");
     cardEl.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 30);
 }
+
+// --- Collapse / Expand cards -------------------------------------------
+
+function collapseCard(cardEl, summaryText) {
+  cardEl.classList.add("card-collapsed");
+  var summaryLine = cardEl.querySelector(".card-summary-line");
+  if (summaryLine && summaryText) {
+    summaryLine.textContent = summaryText;
+    summaryLine.style.display = "block";
+  }
+  var header = cardEl.querySelector(".card-header");
+  if (header) header.classList.add("card-header-clickable");
+}
+
+function expandCard(cardEl) {
+  cardEl.classList.remove("card-collapsed");
+  var summaryLine = cardEl.querySelector(".card-summary-line");
+  if (summaryLine) summaryLine.style.display = "none";
+  var header = cardEl.querySelector(".card-header");
+  if (header) header.classList.remove("card-header-clickable");
+  // Invalidate map size if card1 is expanded (Leaflet needs this)
+  if (cardEl.id === "card1" && leafletMap) {
+    setTimeout(function () {
+      leafletMap.invalidateSize();
+    }, 50);
+  }
+  cardEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Card header click handlers for expand/collapse
+el("card1-header").addEventListener("click", function () {
+  if (!el("card1").classList.contains("card-collapsed")) return;
+  expandCard(el("card1"));
+  // Collapse downstream
+  [card2, card3, card4, instructionsPreview].forEach(function (c) {
+    c.style.display = "none";
+    c.classList.remove("card-visible");
+    c.classList.remove("card-collapsed");
+  });
+});
+
+el("card2-header").addEventListener("click", function () {
+  if (!card2.classList.contains("card-collapsed")) return;
+  expandCard(card2);
+  // Collapse downstream
+  [card3, card4, instructionsPreview].forEach(function (c) {
+    c.style.display = "none";
+    c.classList.remove("card-visible");
+    c.classList.remove("card-collapsed");
+  });
+});
+
+el("card3-header").addEventListener("click", function () {
+  if (!card3.classList.contains("card-collapsed")) return;
+  expandCard(card3);
+  // Collapse downstream
+  [card4, instructionsPreview].forEach(function (c) {
+    c.style.display = "none";
+    c.classList.remove("card-visible");
+    c.classList.remove("card-collapsed");
+  });
+});
+
+el("card4-header").addEventListener("click", function () {
+  if (!card4.classList.contains("card-collapsed")) return;
+  expandCard(card4);
+  // Hide instructions
+  instructionsPreview.style.display = "none";
+  instructionsPreview.classList.remove("card-visible");
+});
 
 // --- Theme toggle ------------------------------------------------------
 
@@ -1171,11 +1291,13 @@ function updateMapTiles() {
   if (saved === "light") {
     document.body.classList.add("light-mode");
     toggle.textContent = "\u{1F319}";
+  } else {
+    toggle.textContent = "\u2600\uFE0F";
   }
   toggle.addEventListener("click", function () {
     document.body.classList.toggle("light-mode");
     var isLight = document.body.classList.contains("light-mode");
-    toggle.textContent = isLight ? "\u{1F319}" : "\u{1F31E}";
+    toggle.textContent = isLight ? "\u{1F319}" : "\u2600\uFE0F";
     localStorage.setItem("theme", isLight ? "light" : "dark");
     updateMapTiles();
   });
